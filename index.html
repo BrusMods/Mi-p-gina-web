@@ -220,6 +220,76 @@ document.getElementById("colorToggleBtn").addEventListener("click",()=>{
   });
 });
 </script>
+<script>
+// KEYS válidas
+const validKeys = ["Brusmods23gg","Brusmods45gg","Brusmods23gg"];
 
+// Crear popup dinámico
+function showKeyPopup() {
+  // Crear overlay
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = 1000;
+
+  // Crear cuadro
+  const box = document.createElement("div");
+  box.style.background = "rgba(0,0,0,0.9)";
+  box.style.backdropFilter = "blur(8px)";
+  box.style.padding = "30px";
+  box.style.border = "2px solid #ff0033";
+  box.style.borderRadius = "15px";
+  box.style.textAlign = "center";
+  box.style.width = "320px";
+  box.style.maxWidth = "90%";
+
+  box.innerHTML = `
+    <h2 style="color:#ff0033;margin-bottom:15px;">Eres un usuario que quiere comprar mi mod?</h2>
+    <p style="color:#fff;margin-bottom:15px;">Ingrese la key para desbloquear este menú</p>
+    <input type="text" id="keyInput" placeholder="Escribe tu key" style="padding:10px;width:80%;border-radius:8px;border:none;margin-bottom:15px;">
+    <br>
+    <button id="validateKeyBtn" style="padding:10px 20px;border-radius:10px;border:none;background:#ff0033;color:#fff;font-weight:600;cursor:pointer;">Validar Key</button>
+    <button id="closeKeyBtn" style="padding:10px 20px;border-radius:10px;border:none;background:#555;color:#fff;margin-left:10px;cursor:pointer;">Cerrar</button>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  // Botón validar
+  document.getElementById("validateKeyBtn").addEventListener("click", () => {
+    const inputKey = document.getElementById("keyInput").value.trim();
+    if (validKeys.includes(inputKey)) {
+      alert("Key válida ✅ ¡Acceso desbloqueado!");
+      overlay.remove();
+    } else {
+      alert("❌ Key no válida");
+    }
+  });
+
+  // Botón cerrar
+  document.getElementById("closeKeyBtn").addEventListener("click", () => {
+    overlay.remove();
+  });
+}
+
+// Seleccionar solo el botón "Entrar" de MODS VIP
+document.querySelectorAll(".section .card").forEach(card => {
+  const title = card.querySelector("h3");
+  if (title && title.textContent.includes("MODS VIP")) {
+    const btn = card.querySelector("a.loader-btn");
+    btn.addEventListener("click", e => {
+      e.preventDefault(); // Evitar loader normal
+      showKeyPopup();
+    });
+  }
+});
+</script>
 </body>
 </html>
