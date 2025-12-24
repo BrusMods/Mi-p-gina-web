@@ -5,241 +5,284 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRUSMODS</title>
 <meta name="theme-color" content="#7f1d1d">
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-:root{
-  --mainColor:#ff0033;
-}
-
 *{box-sizing:border-box;font-family:'Poppins',system-ui;}
-body{
-  margin:0;
-  background:radial-gradient(circle at top,var(--mainColor),#000);
-  color:#fff;
-  overflow-x:hidden;
-}
+body{margin:0;background:radial-gradient(circle at top,#7f1d1d,#000);color:#fff;overflow-x:hidden;}
 canvas{position:fixed;inset:0;z-index:0;}
 
 /* HEADER */
-header{
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(6px);
-  padding:15px 20px;
-  position:relative;
-  z-index:2;
-  border-bottom:1px solid rgba(255,0,51,.25);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+header{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:15px 20px;position:relative;z-index:2;border-bottom:1px solid rgba(255,0,51,.25);display:flex;align-items:center;justify-content:space-between;}
 .top{display:flex;align-items:center;gap:14px;}
 .top img{height:55px;}
 .brand{font-size:23px;font-weight:700;}
-.menu-btn{
-  background:none;border:none;cursor:pointer;
-  display:flex;flex-direction:column;gap:4px;
-}
-.menu-btn span{
-  width:28px;height:3px;
-  background:var(--mainColor);
-  border-radius:2px;
-}
-
-/* SIDE MENU */
-.side-menu{
-  position:fixed;top:0;right:-260px;
-  width:260px;height:100vh;
-  background:rgba(0,0,0,.95);
-  backdrop-filter:blur(10px);
-  padding:25px;
-  z-index:5;
-  transition:.35s ease;
-}
+.menu-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;height:22px;width:28px;}
+.menu-btn span{display:block;height:3px;width:100%;background:#ff0033;border-radius:2px;}
+.side-menu{position:fixed;top:0;right:-260px;width:260px;height:100vh;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);padding:25px;z-index:5;transition:.35s ease;border-left:1px solid rgba(255,0,51,.3);}
 .side-menu.active{right:0;}
-.side-menu h3{color:var(--mainColor);}
-.side-menu a{color:#fff;text-decoration:none;display:block;margin:15px 0;}
-.close-menu{
-  position:absolute;top:10px;right:15px;
-  background:none;border:none;
-  color:var(--mainColor);
-  font-size:26px;
-  cursor:pointer;
-}
+.side-menu h3{color:#ff0033;margin-top:25px;margin-bottom:20px;}
+.side-menu a{display:block;color:#fff;text-decoration:none;margin:15px 0;font-weight:500;}
+.side-menu a:hover{color:#ff0033;}
+.close-menu{position:absolute;top:10px;right:15px;background:none;border:none;color:#ff0033;font-size:26px;font-weight:700;cursor:pointer;}
+.close-menu:hover{transform:scale(1.1);}
 
 /* HERO */
-.hero{text-align:center;padding:60px 20px 40px;z-index:2;position:relative;}
-.hero h1{color:var(--mainColor);}
-.hero p{color:#ddd;}
+.hero{position:relative;z-index:2;text-align:center;padding:60px 20px 40px;}
+.hero h1{color:#ff0033;font-size:28px;}
+.hero p{color:#ddd;max-width:500px;margin:10px auto 30px;}
 
-/* BOTONES */
-.btn-neon{
-  padding:15px 26px;
-  border-radius:14px;
-  border:2px solid var(--mainColor);
-  background:transparent;
-  color:var(--mainColor);
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
-}
-.btn-neon:hover{
-  color:#fff;
-  box-shadow:0 0 20px var(--mainColor),0 0 40px var(--mainColor);
-}
+/* BOTONES NEON */
+.btn-neon{padding:15px 26px;border-radius:14px;border:2px solid #ff0033;background:transparent;color:#ff0033;font-size:15px;font-weight:600;cursor:pointer;transition:.3s;display:inline-block;text-decoration:none;}
+.btn-neon:hover{color:#fff;box-shadow:0 0 20px #ff0033,0 0 40px #ff66aa;}
 
 /* SECCIÓN */
-.section{
-  max-width:1000px;
-  margin:40px auto;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-.card{
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(8px);
-  border-radius:18px;
-  padding:25px;
-  border:1px solid rgba(255,0,51,.25);
-  text-align:center;
-}
+.section{position:relative;z-index:2;max-width:1000px;margin:40px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.card{background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border-radius:18px;padding:25px;border:1px solid rgba(255,0,51,.25);text-align:center;}
 
-/* LOADER */
-#loader{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.loader-bar{
-  width:0;height:8px;
-  background:linear-gradient(90deg,var(--mainColor),#ff66aa);
-}
+/* FOOTER */
+footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;position:relative;z-index:2;}
 
-/* === POPUP KEY ANIMADO === */
-.key-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
-  animation:fadeIn .3s ease;
-}
-.key-box{
-  background:rgba(0,0,0,.9);
-  backdrop-filter:blur(8px);
-  padding:30px;
-  border:2px solid var(--mainColor);
-  border-radius:15px;
-  text-align:center;
-  width:320px;
-  animation:zoomIn .35s ease;
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes zoomIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-@keyframes zoomOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.85)}}
+/* LOADER BARRA */
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:999;}
+.loader-container{width:300px;text-align:center;}
+.loader-bar{width:0%;height:8px;background:linear-gradient(90deg,#ff0033,#ff66aa);border-radius:4px;box-shadow:0 0 10px #ff0033,0 0 20px #ff66aa;transition:width 0.1s linear;}
+.loader-text{color:#fff;margin-top:12px;font-size:16px;font-weight:700;letter-spacing:1px;text-shadow:0 0 5px #ff0033,0 0 10px #ff66aa;}
+
+/* AJUSTES BOTON */
+#musicToggleBtn,#colorToggleBtn{margin-top:10px;padding:10px 15px;border-radius:10px;background:#ff0033;border:none;color:#fff;font-weight:600;cursor:pointer;width:100%;}
 </style>
 </head>
-
 <body>
 
 <canvas id="particles"></canvas>
+<audio id="backgroundMusic" loop src="musica.m4a"></audio>
 
 <header>
   <div class="top">
-    <img src="logo.png">
+    <img src="logo.png" alt="Logo BrusMods">
     <span class="brand">BrusMods</span>
   </div>
-  <button class="menu-btn" id="menuBtn">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
 </header>
 
 <div class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">✖</button>
-  <h3>Menú</h3>
-  <button id="colorToggleBtn" class="btn-neon">Cambiar Color</button>
+  <h3>⚙️ Menú</h3>
+  <a href="https://brusmods.github.io/Mi-p-gina-web/">Inicio</a>
+  <a href="https://brusmods.github.io/En-mantenimiento-/">Mods VIP</a>
+  <a href="https://brusmods.github.io/Mi-p-gina-web/">Herramientas</a>
+  <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb">Canal WhatsApp</a>
+  <h3>⚙️ Ajustes del menú</h3>
+  <button id="musicToggleBtn">Apagar Música</button>
+  <button id="colorToggleBtn">Cambiar Colores</button>
 </div>
 
 <section class="hero">
   <h1>Bienvenido a BRUSMODS</h1>
   <p>Mods completamente Gratis</p>
+  <a href="https://brusmods.github.io/Apkmods/" class="btn-neon loader-btn">Ver Mods</a>
 </section>
 
 <section class="section">
   <div class="card">
     <h3>🔥 MODS VIP</h3>
+    <p>Acceso exclusivo a mods premium.</p>
     <a href="#" class="btn-neon vip-btn">Entrar</a>
+  </div>
+  <div class="card">
+    <h3>🛠 HERRAMIENTAS</h3>
+    <p>Apps y utilidades optimizadas.</p>
+    <a href="https://brusmods.github.io/En-mantenimiento-/" class="btn-neon loader-btn">Ver</a>
+  </div>
+  <div class="card">
+    <h3>📢 MI CANAL WHATSAPP</h3>
+    <p>Únete a la comunidad oficial.</p>
+    <a href="https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb" class="btn-neon loader-btn">Canal</a>
   </div>
 </section>
 
+<footer>© 2025 BRUSMODS</footer>
+
+<div id="loader">
+  <div class="loader-container">
+    <div class="loader-bar"></div>
+    <div class="loader-text">Cargando...</div>
+  </div>
+</div>
+
 <script>
-// MENU
-menuBtn.onclick=()=>sideMenu.classList.add("active");
-closeMenu.onclick=()=>sideMenu.classList.remove("active");
+// MENÚ
+const menuBtn = document.getElementById("menuBtn");
+const sideMenu = document.getElementById("sideMenu");
+const closeMenu = document.getElementById("closeMenu");
+menuBtn.addEventListener("click",()=>sideMenu.classList.add("active"));
+closeMenu.addEventListener("click",()=>sideMenu.classList.remove("active"));
 
 // PARTICLES
-const c=document.getElementById("particles"),x=c.getContext("2d");
-function r(){c.width=innerWidth;c.height=innerHeight}r();
-addEventListener("resize",r);
-let p=[...Array(120)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2}));
-(function a(){
-  x.fillStyle="rgba(0,0,0,.15)";
-  x.fillRect(0,0,c.width,c.height);
-  p.forEach(o=>{
-    o.x+=o.vx;o.y+=o.vy;
-    if(o.x<0||o.y<0||o.x>c.width||o.y>c.height){o.x=Math.random()*c.width;o.y=Math.random()*c.height}
-    x.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--mainColor");
-    x.fillRect(o.x,o.y,2,2);
-  });
-  requestAnimationFrame(a);
-})();
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let sparks=[];
+let particleColor = "#ff0033";
 
-// COLOR
-const colors=["#ff0033","#00aaff","#00ff55","#aa00ff"];
-let i=0;
-colorToggleBtn.onclick=()=>{
-  i=(i+1)%colors.length;
-  document.documentElement.style.setProperty("--mainColor",colors[i]);
-};
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+window.addEventListener("resize",resize);resize();
 
-// KEYS
-const validKeys=["Brusmods23gg","BrusmodsVIP"];
-const secretLink="https://brusmods.github.io/En-mantenimiento-/";
-
-function showKeyPopup(){
-  const o=document.createElement("div");
-  o.className="key-overlay";
-  const b=document.createElement("div");
-  b.className="key-box";
-  b.innerHTML=`
-    <h2 style="color:var(--mainColor)">Ingrese la Key</h2>
-    <input id="keyInput" style="padding:10px;width:100%;border-radius:8px">
-    <br><br>
-    <button id="ok" class="btn-neon">Validar</button>
-    <button id="cl" class="btn-neon">Cerrar</button>`;
-  o.appendChild(b);
-  document.body.appendChild(o);
-
-  cl.onclick=()=>{b.style.animation="zoomOut .25s";setTimeout(()=>o.remove(),200);}
-  ok.onclick=()=>{
-    if(validKeys.includes(keyInput.value.trim())){
-      window.location.href=secretLink;
-    }else alert("Key inválida");
-  };
+for(let i=0;i<120;i++){
+  sparks.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,life:Math.random()*100});
 }
 
-document.querySelector(".vip-btn").onclick=e=>{
-  e.preventDefault();
-  showKeyPopup();
-};
+function animate(){
+  ctx.fillStyle="rgba(0,0,0,0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  sparks.forEach(s=>{
+    s.x+=s.vx;
+    s.y+=s.vy;
+    s.life--;
+    if(s.life<=0){
+      s.x=Math.random()*canvas.width;
+      s.y=Math.random()*canvas.height;
+      s.life=100;
+    }
+    ctx.fillStyle = particleColor;
+    ctx.fillRect(s.x,s.y,2,2);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// LOADER SOLO BOTONES DE INICIO
+const loader=document.getElementById("loader");
+const loaderBar=loader.querySelector(".loader-bar");
+document.querySelectorAll(".loader-btn").forEach(btn=>{
+  btn.addEventListener("click",e=>{
+    e.preventDefault();
+    const url=btn.getAttribute("href");
+    loader.style.display="flex";
+    loaderBar.style.width="0%";
+    let width=0;
+    const interval=setInterval(()=>{
+      width+=1;
+      loaderBar.style.width=width+"%";
+      if(width>=100){clearInterval(interval);window.location.href=url;}
+    },30);
+  });
+});
+
+// Ocultar loader al cargar o volver
+function hideLoader(){loader.style.display="none";loaderBar.style.width="0%";}
+window.addEventListener("DOMContentLoaded",hideLoader);
+window.addEventListener("pageshow",e=>{if(e.persisted)hideLoader();});
+
+// MÚSICA
+const backgroundMusic = document.getElementById("backgroundMusic");
+backgroundMusic.volume = 0.3;
+let musicOn = true;
+let musicStarted = false;
+
+menuBtn.addEventListener("click", () => {
+    sideMenu.classList.add("active");
+    if (!musicStarted) {
+        backgroundMusic.play().catch(() => {});
+        musicStarted = true;
+    }
+});
+
+document.getElementById("musicToggleBtn").addEventListener("click", () => {
+    if (musicOn) {
+        backgroundMusic.pause();
+        musicOn = false;
+        document.getElementById("musicToggleBtn").textContent = "Encender Música";
+    } else {
+        backgroundMusic.play();
+        musicOn = true;
+        document.getElementById("musicToggleBtn").textContent = "Apagar Música";
+    }
+});
+
+// BOTÓN PARA CAMBIAR COLORES
+const colors = ["#ff0033","#00aaff","#00ff55","#aa00ff"];
+let currentColor = 0;
+document.getElementById("colorToggleBtn").addEventListener("click",()=>{
+  currentColor = (currentColor+1)%colors.length;
+  let newColor = colors[currentColor];
+  document.body.style.background = `radial-gradient(circle at top, ${newColor}, #000)`;
+  particleColor = newColor;
+  document.querySelectorAll(".btn-neon").forEach(btn=>{
+    btn.style.borderColor = newColor;
+    btn.style.boxShadow = `0 0 20px ${newColor}, 0 0 40px ${newColor}`;
+    btn.style.color = newColor;
+  });
+});
+</script>
+
+<script>
+// KEYS válidas
+const validKeys = ["Brusmods23gg","Brusmods45gg","Brusmods23gg","BrusmodsVIP"];
+const secretLink = "https://brusmods.github.io/En-mantenimiento-/"; // <--- aquí pones tu link secreto
+
+function showKeyPopup() {
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = 1000;
+
+  const box = document.createElement("div");
+  box.style.background = "rgba(0,0,0,0.9)";
+  box.style.backdropFilter = "blur(8px)";
+  box.style.padding = "30px";
+  box.style.border = "2px solid #ff0033";
+  box.style.borderRadius = "15px";
+  box.style.textAlign = "center";
+  box.style.width = "320px";
+  box.style.maxWidth = "90%";
+
+  box.innerHTML = `
+    <h2 style="color:#ff0033;margin-bottom:15px;">Eres un usuario que quiere comprar mi mod?</h2>
+    <p style="color:#fff;margin-bottom:15px;">Ingrese la key para desbloquear este menú</p>
+    <input type="text" id="keyInput" placeholder="Escribe tu key" style="padding:10px;width:80%;border-radius:8px;border:none;margin-bottom:15px;">
+    <br>
+    <button id="validateKeyBtn" style="padding:10px 20px;border-radius:10px;border:none;background:#ff0033;color:#fff;font-weight:600;cursor:pointer;">Validar Key</button>
+    <button id="closeKeyBtn" style="padding:10px 20px;border-radius:10px;border:none;background:#555;color:#fff;margin-left:10px;cursor:pointer;">Cerrar</button>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  document.getElementById("validateKeyBtn").addEventListener("click", () => {
+    const inputKey = document.getElementById("keyInput").value.trim();
+    if (validKeys.includes(inputKey)) {
+      alert("Key válida ✅ ¡Acceso desbloqueado!");
+      overlay.remove();
+      window.location.href = secretLink; // solo aquí redirige
+    } else {
+      alert("❌ Key no válida");
+    }
+  });
+
+  document.getElementById("closeKeyBtn").addEventListener("click", () => {
+    overlay.remove();
+  });
+}
+
+// Solo botón VIP
+document.querySelectorAll(".section .card").forEach(card => {
+  const title = card.querySelector("h3");
+  if (title && title.textContent.includes("MODS VIP")) {
+    const btn = card.querySelector("a.vip-btn");
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      showKeyPopup();
+    });
+  }
+});
 </script>
 
 </body>
