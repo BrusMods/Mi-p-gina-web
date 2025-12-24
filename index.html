@@ -355,7 +355,55 @@ function animate(){
   requestAnimationFrame(animate);
 }
 animate();
-// LOADER BARRA
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-circle"></div>
+  <div class="loader-text">Cargando...</div>
+</div>
+
+<style>
+#loader{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+}
+
+.loader-circle{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  border:5px solid rgba(255,0,51,0.2);
+  border-top:5px solid #ff0033;
+  box-shadow:0 0 20px #ff0033, 0 0 40px #ff66aa;
+  animation:spin 1s linear infinite;
+}
+
+.loader-text{
+  margin-top:18px;
+  color:#ff0033;
+  font-weight:700;
+  letter-spacing:2px;
+  text-shadow:0 0 5px #ff0033,0 0 10px #ff66aa;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+@keyframes pulse{
+  0%,100%{opacity:0.6}
+  50%{opacity:1}
+}
+</style>
+
+<script>
 const loader = document.getElementById("loader");
 const buttons = document.querySelectorAll(".btn-neon");
 
@@ -363,28 +411,27 @@ buttons.forEach(btn => {
   btn.addEventListener("click", e => {
     const url = btn.getAttribute("href");
 
-    // Detectar si es un enlace externo
+    // Detecta enlaces externos
     const isExternal = url.startsWith("http") && !url.includes(location.hostname);
 
-    if (isExternal) {
-      // Abrir externo sin loader
-      return; // No hacemos nada, solo deja que abra el link
+    if(isExternal){
+      window.open(url,"_blank"); // Abrir en otra pestaña
+      return;
     }
 
-    e.preventDefault(); // Solo previene si es interno
+    e.preventDefault();
     loader.style.display = "flex";
 
-    setTimeout(() => {
+    setTimeout(()=>{
       window.location.href = url;
-    }, 1500); // Tiempo de loader
+    }, 1200); // tiempo del loader
   });
 });
 
 // Ocultar loader al cargar o volver
-function hideLoader() {
+function hideLoader(){
   loader.style.display = "none";
 }
 window.addEventListener("DOMContentLoaded", hideLoader);
-window.addEventListener("pageshow", (e) => {
-  if (e.persisted) hideLoader(); // Volver desde cache
-});
+window.addEventListener("pageshow", e => { if(e.persisted) hideLoader(); });
+</script>
