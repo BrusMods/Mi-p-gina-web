@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRUSMODS</title>
+
+<meta name="theme-color" content="#7f1d1d">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+  font-family:'Poppins',system-ui;
+}
+
+body{
+  margin:0;
+  background:radial-gradient(circle at top, #7f1d1d, #000);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* PARTICLES */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+/* HEADER */
+header{
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  padding:15px;
+  position:relative;
+  z-index:2;
+  border-bottom:1px solid rgba(255,0,51,.25);
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.top img{
+  height:55px;
+}
+
+.brand{
+  font-size:23px;
+  font-weight:700;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:60px 20px 40px;
+}
+
+.hero h1{
+  color:#ff0033;
+  font-size:28px;
+}
+
+.hero p{
+  color:#ddd;
+  max-width:500px;
+  margin:10px auto 30px;
+  font-size:15px;
+}
+
+/* BOTÓN NEON */
+.btn-neon{
+  padding:15px 26px;
+  border-radius:14px;
+  border:2px solid #ff0033;
+  background:transparent;
+  color:#ff0033;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.btn-neon::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, transparent, #ff0033, transparent);
+  transform:translateX(-100%);
+  transition:.5s;
+}
+
+.btn-neon:hover::before{
+  transform:translateX(100%);
+}
+
+.btn-neon:hover{
+  color:#fff;
+  box-shadow:0 0 20px #ff0033,0 0 40px #ff0033;
+}
+
+/* SECCIÓN */
+.section{
+  position:relative;
+  z-index:2;
+  max-width:1000px;
+  margin:40px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+/* CARD */
+.card{
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(8px);
+  border-radius:18px;
+  padding:25px;
+  border:1px solid rgba(255,0,51,.25);
+  text-align:center;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:12px;
+  color:#ffb3b3;
+  opacity:.8;
+  position:relative;
+  z-index:2;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+  <div class="top">
+    <img src="logo.png">
+    <span class="brand">BrusMods</span>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Bienvenido a BRUSMODS</h1>
+  <p>Mods, herramientas y contenido exclusivo con estilo premium.</p>
+  <button class="btn-neon">Ver Mods</button>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h3>🔥 MODS VIP</h3>
+    <p>Acceso exclusivo a mods premium.</p>
+    <button class="btn-neon">Entrar</button>
+  </div>
+
+  <div class="card">
+    <h3>🛠 HERRAMIENTAS</h3>
+    <p>Apps y utilidades optimizadas.</p>
+    <button class="btn-neon">Ver</button>
+  </div>
+
+  <div class="card">
+    <h3>📢 CANAL</h3>
+    <p>Únete a la comunidad oficial.</p>
+    <button class="btn-neon">YouTube</button>
+  </div>
+</section>
+
+<footer>© 2025 BRUSMODS</footer>
+
+<script>
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let particles=[];
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+addEventListener("resize",resize);
+resize();
+
+for(let i=0;i<100;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+1,
+    dx:(Math.random()-.5)*1.2,
+    dy:(Math.random()-.5)*1.2
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#ff0033";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.dx;
+    p.y+=p.dy;
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
