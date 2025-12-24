@@ -145,6 +145,29 @@ function hideLoader(){loader.style.display="none";loaderBar.style.width="0%";}
 window.addEventListener("DOMContentLoaded",hideLoader);
 window.addEventListener("pageshow",e=>{if(e.persisted)hideLoader();});
 </script>
+<!-- Al final de tu body, antes del </body> -->
 
+<!-- BOTÓN DE MÚSICA -->
+<button id="musicBtn" class="btn-neon" style="position:fixed;bottom:20px;right:20px;z-index:999;">🎵 Música</button>
+<audio id="backgroundMusic" src="musica.m4a" loop></audio>
+
+<script>
+// BOTÓN DE MÚSICA
+const musicBtn = document.getElementById("musicBtn");
+const backgroundMusic = document.getElementById("backgroundMusic");
+let isPlaying = false;
+
+musicBtn.addEventListener("click", () => {
+  if(!isPlaying){
+    backgroundMusic.play().catch(()=>alert("Interactúa con la página para que suene la música"));
+    isPlaying = true;
+    musicBtn.textContent = "🔇 Pausar música";
+  } else {
+    backgroundMusic.pause();
+    isPlaying = false;
+    musicBtn.textContent = "🎵 Música";
+  }
+});
+</script>
 </body>
 </html>
