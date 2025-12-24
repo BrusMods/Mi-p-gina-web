@@ -380,7 +380,15 @@ buttons.forEach(btn => {
     }, 25);
   });
 });
+// Ocultar loader al cargar la página o al volver con botón atrás
+function hideLoader() {
+  loader.style.display = 'none';
+  loaderBar.style.width = '0%';
+}
+
+window.addEventListener('DOMContentLoaded', hideLoader);
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) hideLoader(); // si viene del cache del navegador
+});
 </script>
 
-</body>
-</html>
