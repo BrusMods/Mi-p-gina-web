@@ -305,6 +305,85 @@ document.querySelectorAll(".section .card").forEach(card => {
   }
 });
 </script>
+<script>
+// POPUP CONFIRMACIÓN WHATSAPP
+const whatsappLink = "https://chat.whatsapp.com/CkN3rWTIQeHF293yhpWkLb";
 
+document.querySelectorAll(".whatsapp-btn").forEach(btn=>{
+  btn.addEventListener("click", e=>{
+    e.preventDefault();
+    showWhatsappPopup();
+  });
+});
+
+function showWhatsappPopup(){
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "1000";
+
+  const box = document.createElement("div");
+  box.style.background = "rgba(0,0,0,0.95)";
+  box.style.backdropFilter = "blur(10px)";
+  box.style.border = "2px solid #ff0033";
+  box.style.borderRadius = "18px";
+  box.style.padding = "30px";
+  box.style.textAlign = "center";
+  box.style.width = "340px";
+  box.style.maxWidth = "90%";
+
+  box.innerHTML = `
+    <h2 style="color:#ff0033;margin-bottom:15px;">
+      ¿Estás seguro que hablas español?
+    </h2>
+
+    <p style="color:#fff;font-size:14px;line-height:1.5;margin-bottom:25px;">
+      Solo los que pueden hablar <b>español</b> pueden unirse a la comunidad.<br><br>
+      Si hablas <b>inglés o portugués</b>, puedes unirte a la comunidad de
+      <span style="color:#00aaff;font-weight:600;">Telegram</span>.
+    </p>
+
+    <div style="display:flex;gap:15px;justify-content:center;">
+      <button id="confirmSpanish" style="
+        padding:12px 25px;
+        border-radius:12px;
+        border:none;
+        background:#ff0033;
+        color:#fff;
+        font-weight:700;
+        cursor:pointer;
+        box-shadow:0 0 15px #ff0033;">
+        SI
+      </button>
+
+      <button id="closePopup" style="
+        padding:12px 25px;
+        border-radius:12px;
+        border:none;
+        background:#444;
+        color:#fff;
+        font-weight:600;
+        cursor:pointer;">
+        CERRAR
+      </button>
+    </div>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  document.getElementById("confirmSpanish").onclick = ()=>{
+    window.location.href = whatsappLink;
+  };
+
+  document.getElementById("closePopup").onclick = ()=>{
+    overlay.remove();
+  };
+}
+</script>
 </body>
 </html>
