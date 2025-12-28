@@ -326,10 +326,6 @@ window.addEventListener("pageshow", ()=>{
   loader.style.display = "none";
 });
 
-// Ocultar loader al cargar o volver
-function hideLoader(){loader.style.display="none";loaderBar.style.width="0%";}
-window.addEventListener("DOMContentLoaded",hideLoader);
-window.addEventListener("pageshow",e=>{if(e.persisted)hideLoader();});
 
 // MÚSICA
 const backgroundMusic = document.getElementById("backgroundMusic");
