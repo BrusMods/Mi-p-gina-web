@@ -98,6 +98,30 @@ header{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:15px 20px;po
 /* FOOTER */
 footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;position:relative;z-index:2;}
 
+  /* ===== LOADER PANTALLA COMPLETA ===== */
+#loader{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.loader-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+
+.loader-text{
+  color:#ff0033;
+  font-weight:700;
+  letter-spacing:1px;
+  text-shadow:0 0 10px #ff0033;
+}
 /* ===== SPINNER 3D ROJO ===== */
 .spinner{
   width:48px;
@@ -213,12 +237,15 @@ footer{text-align:center;padding:25px;font-size:12px;color:#ffb3b3;opacity:.8;po
 
 <footer>© 2025 BRUSMODS</footer>
 
-<div class="loader-container">
-  <div class="spinner">
-    <div></div><div></div><div></div>
-    <div></div><div></div><div></div>
+<!-- LOADER PANTALLA COMPLETA -->
+<div id="loader">
+  <div class="loader-container">
+    <div class="spinner">
+      <div></div><div></div><div></div>
+      <div></div><div></div><div></div>
+    </div>
+    <div class="loader-text">Cargando...</div>
   </div>
-  <div class="loader-text">Cargando...</div>
 </div>
       
 <script>
